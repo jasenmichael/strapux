@@ -6,7 +6,6 @@ const {
 } = require('./strapux')
 const env = getEnv()
 
-
 function getEnv() {
     let config = {
         workingDir: process.cwd(),

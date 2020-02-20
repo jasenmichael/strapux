@@ -7,7 +7,7 @@
   "options": {
     "single_repo": true,
     "db": "postgress",
-    "dependencies": ["write-json-file", "load-json-file", "inquirer", "ora"]
+    "dependencies": ["write-json-file", "load-json-file", "inquirer", "ora", "npm-run-all"]
   },
   "backend": {
     "path": "backend",
