@@ -1,0 +1,10 @@
+node_modules
+**/node_modules
+
+strapux.config.json
+
+.env
+**/.env
+
+backend
+frontend
