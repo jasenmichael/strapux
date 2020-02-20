@@ -12,6 +12,7 @@ module.exports = async function (projectDir) {
     // npm init (with default, will config package.json later)
     await runBashCommand(`cd ${projectDir} && rm -f package.json >/dev/null 2>&1`)
     await runBashCommand(`cd ${projectDir} && rm -f package-lock.json >/dev/null 2>&1`)
+    await runBashCommand(`cd ${projectDir} && rm -f yarn-lock >/dev/null 2>&1`)
     await runBashCommand(`cd ${projectDir} && npm init -y >/dev/null 2>&1`)
 
     // install strapux packages
