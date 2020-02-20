@@ -8,16 +8,16 @@ const {
 
 const sampleConfigData = require('./example.strapux.config.json')
 
-module.exports = async function () {
+module.exports = async function (projectDir) {
     // --todo-- add check dependencies
     // npm init (with default, will config package.json later)
-    await runBashCommand('rm -f package.json >/dev/null 2>&1')
-    await runBashCommand('rm -f package-lock.json >/dev/null 2>&1')
-    await runBashCommand('npm init -y >/dev/null 2>&1')
+    await runBashCommand(`cd ${projectDir} && rm -f package.json >/dev/null 2>&1`)
+    await runBashCommand(`cd ${projectDir} && rm -f package-lock.json >/dev/null 2>&1`)
+    await runBashCommand(`cd ${projectDir} && npm init -y >/dev/null 2>&1`)
 
     // install strapux packages
     // await runBashScript('bin/bash-command.sh', ['npm', 'install'].concat(sampleConfigData.options.dependencies))
-    await runBashCommand(`npm install ${sampleConfigData.options.dependencies.join(" ")} >/dev/null 2>&1`)
+    await runBashCommand(`cd ${projectDir} && npm install ${sampleConfigData.options.dependencies.join(" ")} >/dev/null 2>&1`)
     // await runBashScript('bin/bash-command.sh', ['npm', 'install'])
     const ora = require('ora')
     const spinner = ora('pre-configuring Strapux')
@@ -26,7 +26,7 @@ module.exports = async function () {
     spinner.stop()
     console.log("\r\n")
     // create strapux.config.json from example.strapux.config.json
-    let configData = fs.existsSync('strapux.config.json') ? await readJsonFile('./strapux.config.json') : await readJsonFile('./bin/example.strapux.config.json')
+    let configData = fs.existsSync(`${projectDir}/strapux.config.json`) ? await readJsonFile(`${projectDir}/strapux.config.json`) : await readJsonFile(`${projectDir}/bin/example.strapux.config.json`)
     configData = await readJsonFile('./strapux.config.json')
 
     // configure frontend and backend paths
