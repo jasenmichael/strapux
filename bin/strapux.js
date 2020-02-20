@@ -8,7 +8,7 @@ async function install(projectDir) {
     await preConfigure(projectDir)
     const config = await readJsonFile(`${projectDir}/strapux.config.json`)
     // install nuxt
-    await runBashScript(`{${projectDir}}/bin/install-nuxt.sh`, [projectDir, config.frontend.path])
+    await runBashScript(`${projectDir}/bin/install-nuxt.sh`, [projectDir, config.frontend.path])
     // install frontend extra_packages
 
     // instal strapi
