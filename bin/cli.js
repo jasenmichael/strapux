@@ -32,7 +32,7 @@ if ((process.argv[3] === "--install-from-npx") || (process.argv[2] === "--instal
 }
 
 async function install() {
-    await strapuxInstall(env.projectDir)
+    await strapuxInstall(env.projectDir, env.projectName)
     runBashCommand('rm -rf package-lock.json')
 }
 

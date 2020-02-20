@@ -7,7 +7,7 @@ const {
 } = require('./strapux')
 
 
-module.exports = async function (projectDir) {
+module.exports = async function (projectDir, projectName) {
     // --todo-- add check dependencies
     // npm init (with default, will config package.json later)
     await runBashCommand(`cd ${projectDir} && rm -f package.json >/dev/null 2>&1`)
@@ -17,13 +17,12 @@ module.exports = async function (projectDir) {
 
     // install strapux packages
     // await runBashScript('bin/bash-command.sh', ['npm', 'install'].concat(sampleConfigData.options.dependencies))
-    const sampleConfigData = require(`${projectDir}/bin/example.strapux.config.json`)
+    const sampleConfigData = require(`${projectDir}/bin/configs/example.strapux.config.json`)
     await runBashCommand(`cd ${projectDir} && npm install ${sampleConfigData.options.dependencies.join(" ")} >/dev/null 2>&1`)
-    // await runBashScript('bin/bash-command.sh', ['npm', 'install'])
     const ora = require('ora')
     const spinner = ora('pre-configuring Strapux')
     spinner.start()
-    await runBashCommand(`npm install >/dev/null 2>&1`)
+    // await runBashCommand(`npm install >/dev/null 2>&1`)
     spinner.stop()
     console.log("\r\n")
     // create strapux.config.json from example.strapux.config.json
@@ -50,6 +49,14 @@ module.exports = async function (projectDir) {
     let results = await inquirer.prompt(questions)
     configData.frontend.path = results.Frontend_Path
     configData.backend.path = results.Backend_Path
+
+    // get pkgData
+    let pkgData = await readJsonFile(`${projectDir}/package.json`)
+    // save scripts to pkgData from strapux.config.json or example.strapux.config.json
+    pkgData.scripts = configData.options.scripts
+    // save pkgData in package.json
+    await saveJsonFile(`${projectDir}/package.json`, pkgData)
+    // save configData in strapux.config.json
     await saveJsonFile(configFile, configData)
 
     // remove git, and re-init git,

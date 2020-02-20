@@ -1,11 +1,11 @@
 const child_process = require('child_process')
 
-async function strapuxInstall(projectDir) {
+async function strapuxInstall(projectDir, projectName) {
     const preConfigure = require('./pre-configure')
     const postConfigure = require('./post-configure')
     console.log('Installing Strapux...')
     // pre-configure, and create strapux.config.json
-    await preConfigure(projectDir)
+    await preConfigure(projectDir, projectName)
     const config = await readJsonFile(`${projectDir}/strapux.config.json`)
     // install nuxt
     await runBashScript(`${projectDir}/bin/install-nuxt.sh`, [projectDir, config.frontend.path])

@@ -3,8 +3,11 @@ node_modules
 
 strapux.config.json
 
+
 .env
 **/.env
+.frontend.env
+.backend.env
 
 backend
 frontend
