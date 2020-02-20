@@ -1,4 +1,4 @@
-# echo "installing Strapi in $1/$2"
+echo "installing Strapi in $1/$2"
 cd $1
 npx create-strapi-app $2 --no-run --use-$3 --quickstart
 echo "Strapi installed"
