@@ -51,7 +51,6 @@ module.exports = async function () {
     await saveJsonFile('strapux.config.json', configData)
 
     // remove git, and re-init git,
-    await runBashCommand('rm -rf .git >/dev/null 2>&1')
-    await runBashCommand('git init >/dev/null 2>&1')
-    // await runBashScript('bin/bash-command.sh', ['git', 'init'])
+    // await runBashCommand('rm -rf .git >/dev/null 2>&1')
+    // await runBashCommand('git init >/dev/null 2>&1')
 }
