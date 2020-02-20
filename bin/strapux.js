@@ -1,6 +1,6 @@
 const child_process = require('child_process')
 
-async function install(projectDir) {
+async function strapuxInstall(projectDir) {
     const preConfigure = require('./pre-configure')
     const postConfigure = require('./post-configure')
     console.log('Installing Strapux...')
@@ -41,7 +41,7 @@ async function saveJsonFile(jsonFile, data) {
 }
 
 module.exports = {
-    install,
+    strapuxInstall,
     runBashCommand,
     runBashScript,
     readJsonFile,
