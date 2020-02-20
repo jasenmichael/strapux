@@ -6,7 +6,6 @@ const {
     saveJsonFile
 } = require('./strapux')
 
-const sampleConfigData = require('./example.strapux.config.json')
 
 module.exports = async function (projectDir) {
     // --todo-- add check dependencies
@@ -17,6 +16,7 @@ module.exports = async function (projectDir) {
 
     // install strapux packages
     // await runBashScript('bin/bash-command.sh', ['npm', 'install'].concat(sampleConfigData.options.dependencies))
+    const sampleConfigData = require(`${projectDir}/bin/example.strapux.config.json`)
     await runBashCommand(`cd ${projectDir} && npm install ${sampleConfigData.options.dependencies.join(" ")} >/dev/null 2>&1`)
     // await runBashScript('bin/bash-command.sh', ['npm', 'install'])
     const ora = require('ora')
@@ -26,11 +26,12 @@ module.exports = async function (projectDir) {
     spinner.stop()
     console.log("\r\n")
     // create strapux.config.json from example.strapux.config.json
-    let configData = fs.existsSync(`${projectDir}/strapux.config.json`) ? await readJsonFile(`${projectDir}/strapux.config.json`) : await readJsonFile(`${projectDir}/bin/example.strapux.config.json`)
-    configData = await readJsonFile('./strapux.config.json')
+    const configFile = `${projectDir}/strapux.config.json`
+    console.log(configFile)
+    let configData = fs.existsSync(configFile) ? await readJsonFile(configFile) : sampleConfigData
+    // configData = await readJsonFile(configFile)
 
     // configure frontend and backend paths
-    const chalk = require("chalk")
     const inquirer = require("inquirer");
     let questions = [{
         type: "list",
@@ -48,7 +49,7 @@ module.exports = async function (projectDir) {
     let results = await inquirer.prompt(questions)
     configData.frontend.path = results.Frontend_Path
     configData.backend.path = results.Backend_Path
-    await saveJsonFile('strapux.config.json', configData)
+    await saveJsonFile(configFile, configData)
 
     // remove git, and re-init git,
     // await runBashCommand('rm -rf .git >/dev/null 2>&1')
