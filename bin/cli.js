@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 const {
-    install
+    strapuxInstall,
+    runBashCommand
 } = require('./strapux')
 const env = getEnv()
 
@@ -28,5 +29,10 @@ console.log('projectDir', env.projectDir)
 
 // install from npx or use --install
 if ((process.argv[3] === "--install-from-npx") || (process.argv[2] === "--install")) {
-    install(env.projectDir)
+ install()
+}
+
+async function install() {
+    await strapuxInstall(env.projectDir)
+    runBashCommand('rm package-lock.json')
 }
