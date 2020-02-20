@@ -12,7 +12,7 @@ async function install(projectDir) {
     // install frontend extra_packages
 
     // instal strapi
-    await runBashScript(`${projectDir}/bin/install-strapi.sh`, [projectDir, config.backend.path])
+    await runBashScript(`${projectDir}/bin/install-strapi.sh`, [projectDir, config.backend.path, 'npm'])
     // install backend extra_packages
 
     // post configure
