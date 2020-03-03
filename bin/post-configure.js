@@ -26,7 +26,7 @@ module.exports = async function (projectDir, projectName) {
 
 
     // add .env to .gitingore for backend(nuxt has it included)
-    runBashCommand(`echo ".env" >> ../${strapiPath}/.gitignore`)
+    runBashCommand(`echo ".env" >> ${projectDir}/${strapiPath}/.gitignore`)
 
     // if not set - prompt single repo, triple repo, or no repo.
     // prompt user to create project-name repo
