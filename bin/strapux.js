@@ -11,7 +11,7 @@ async function strapuxInstall(projectDir, projectName) {
     // install Nuxt
     await runBashScript(`${projectDir}/bin/install-nuxt.sh`, [projectDir, config.frontend.path])
     // install Nuxt extra_packages
-    let nuxtExtraPackages = config.frontend.extra_packages.join(', ')
+    let nuxtExtraPackages = config.frontend.extra_packages.join(' ')
     await runBashCommand(`cd ${projectDir} && npm i ${nuxtExtraPackages}`)
 
     // instal Strapi
