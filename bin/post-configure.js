@@ -10,7 +10,7 @@ module.exports = async function (projectDir, projectName) {
     console.log('post-configuring Strapux')
     // --- if .env notExist, copy example.env
     if (!fs.existsSync(`${projectDir}/.env`)) {
-        await runBashCommand(`cp "${projectDir}/configs/example.env" ${projectDir}/.env`)
+        await runBashCommand(`cp "${projectDir}/bin/configs/example.env" ${projectDir}/.env`)
     }
 
     // strapi stuff
