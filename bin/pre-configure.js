@@ -39,13 +39,13 @@ module.exports = async function (projectDir, projectName) {
         type: "list",
         name: "Frontend_Path",
         message: "what do you want to name your frontend(Nuxt) folder?",
-        default: "frontend",
+        default: "nuxt",
         choices: ["frontend", "nuxt"]
     }, {
         type: "list",
         name: "Backend_Path",
         message: "what do you want to name your backend(Strapi) folder?",
-        default: "backend",
+        default: "strapi",
         choices: ["backend", "strapi"]
     }]
     let results = await inquirer.prompt(questions)
