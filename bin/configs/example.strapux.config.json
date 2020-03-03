@@ -33,7 +33,8 @@
 		"extra_packages": [
 			"dotenv",
 			"find-config",
-			"github:jasenmichael/strapi-provider-upload-sftp"
+			"github:jasenmichael/strapi-provider-upload-sftp",
+			"pg"
 		],
 		"tweaks": []
 	},
