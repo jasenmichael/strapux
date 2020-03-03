@@ -6,18 +6,27 @@ const {
     saveJsonFile
 } = require('./strapux')
 
-module.exports = async function () {
+module.exports = async function (projectDir, projectName) {
     console.log('post-configuring Strapux')
     // --- if .env notExist, copy example.env
-    if (!fs.existsSync(path)) {
-        runBashCommand(`cp bin/config/strapi/bootstrap.js ${strapiPath}/config/functions/bootstrap.js`)
+    if (!fs.existsSync(`${projectDir}/.env`)) {
+        await runBashCommand(`cp "${projectDir}/configs/example.env" ${projectDir}/.env`)
     }
+
+    // strapi stuff
+    let strapiPath = require(`${projectDir}/strapux.config.json`).backend.path
+    // copy bootstrap.js - adds dotenv to strapi boottrap function
+    await runBashCommand(`rm -f ${projectDir}/${strapiPath}/config/functions/bootstrap.js`)
+    await runBashCommand(`cp ${projectDir}/configs/strapi/bootstrap.js ${projectDir}/${strapiPath}/config/functions/bootstrap.js`)
+    
+    // nuxt stuff
+    
     // --- run node bin/build-env.js
-    runBashCommand(`echo ".env" >> ${strapiPath}/.gitignore`)
+    await runBashCommand(`cd ${projectDir} && node bin/build-env.js`)
+
 
     // add .env to .gitingore for backend(nuxt has it included)
-    let strapiPath = require('../strapux.config.json').backend.path
-    runBashCommand(`echo ".env" >> ${strapiPath}/.gitignore`)
+    runBashCommand(`echo ".env" >> ../${strapiPath}/.gitignore`)
 
     // if not set - prompt single repo, triple repo, or no repo.
     // prompt user to create project-name repo

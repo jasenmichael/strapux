@@ -16,7 +16,7 @@ async function strapuxInstall(projectDir, projectName) {
     // install backend extra_packages
 
     // post configure
-    await postConfigure()
+    await postConfigure(projectDir, projectName)
     process.exit(0)
 }
 
