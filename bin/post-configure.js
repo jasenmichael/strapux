@@ -17,7 +17,7 @@ module.exports = async function (projectDir, projectName) {
     let strapiPath = require(`${projectDir}/strapux.config.json`).backend.path
     // copy bootstrap.js - adds dotenv to strapi boottrap function
     await runBashCommand(`rm -f ${projectDir}/${strapiPath}/config/functions/bootstrap.js`)
-    await runBashCommand(`cp ${projectDir}/configs/strapi/bootstrap.js ${projectDir}/${strapiPath}/config/functions/bootstrap.js`)
+    await runBashCommand(`cp ${projectDir}/bin/configs/strapi/bootstrap.js ${projectDir}/${strapiPath}/config/functions/bootstrap.js`)
     
     // nuxt stuff
     
