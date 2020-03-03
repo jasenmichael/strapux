@@ -10,7 +10,8 @@
 			"write-json-file",
 			"load-json-file",
 			"inquirer",
-			"ora"
+			"ora",
+			"dotenv"
 		],
 		"scripts": {
 			"dev": "npm run develop",
