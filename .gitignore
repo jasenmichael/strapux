@@ -3,16 +3,14 @@ node_modules
 
 strapux.config.json
 
-
 .env
+*.env
 **/.env
-.frontend.env
-.backend.env
-
-backend
-frontend
-nuxt
-strapi
+!bin.configs/example.env
+*.sql
+**/.sql
+*.dump
+**/.dump
 
 !bin/configs/nuxt
 !bin/configs/strapi
