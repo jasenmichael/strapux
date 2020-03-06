@@ -1,0 +1,8 @@
+[submodule "nuxt"]
+	path = nuxt
+	url = git@github.com:<user>/<your-nuxt-app>.git
+	branch = master
+[submodule "strapi"]
+	path = strapi
+	url = git@github.com:<user>/<your-strapi-app>.git
+	branch = master
