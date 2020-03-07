@@ -10,21 +10,21 @@ const {
 module.exports = async function (projectDir, projectName) {
     // --todo-- add check dependencies
 
-
     // install strapux packages
     const sampleConfigData = require(`${projectDir}/bin/configs/example.strapux.config.json`)
-    await runBashCommand(`cd ${projectDir} && npm install ${sampleConfigData.options.dependencies.join(" ")} >/dev/null 2>&1`)
+    await runBashCommand(`cd ${projectDir} && npm install ora >/dev/null 2>&1`)
     const ora = require('ora')
     const spinner = ora('pre-configuring Strapux')
     spinner.start()
+    await runBashCommand(`cd ${projectDir} && npm install ${sampleConfigData.options.dependencies.join(" ")} >/dev/null 2>&1`)
 
     // npm init (with default, will config package.json later)
     await runBashCommand(`cd ${projectDir} && rm -f package.json >/dev/null 2>&1`)
     await runBashCommand(`cd ${projectDir} && rm -f package-lock.json >/dev/null 2>&1`)
     await runBashCommand(`cd ${projectDir} && rm -f yarn-lock >/dev/null 2>&1`)
     await runBashCommand(`cd ${projectDir} && npm init -y >/dev/null 2>&1`)
-    spinner.stop()
-    console.log("\r\n")
+    // spinner.stop()
+    // console.log("\r\n")
 
     // create strapux.config.json from example.strapux.config.json
     const configFile = `${projectDir}/strapux.config.json`
@@ -34,24 +34,26 @@ module.exports = async function (projectDir, projectName) {
 
 
     // configure frontend and backend paths
-    const inquirer = require("inquirer");
-    let questions = [{
-        type: "list",
-        name: "Frontend_Path",
-        message: "what do you want to name your frontend(Nuxt) folder?",
-        default: "nuxt",
-        choices: ["nuxt", "frontend"]
-    }, {
-        type: "list",
-        name: "Backend_Path",
-        message: "what do you want to name your backend(Strapi) folder?",
-        default: "strapi",
-        choices: ["strapi", "backend"]
-    }]
-    let results = await inquirer.prompt(questions)
-    spinner.start()
-    configData.frontend.path = results.Frontend_Path
-    configData.backend.path = results.Backend_Path
+    // const inquirer = require("inquirer");
+    // let questions = [{
+    //     type: "list",
+    //     name: "Frontend_Path",
+    //     message: "what do you want to name your frontend(Nuxt) folder?",
+    //     default: "nuxt",
+    //     choices: ["nuxt", "frontend"]
+    // }, {
+    //     type: "list",
+    //     name: "Backend_Path",
+    //     message: "what do you want to name your backend(Strapi) folder?",
+    //     default: "strapi",
+    //     choices: ["strapi", "backend"]
+    // }]
+    // let results = await inquirer.prompt(questions)
+    // spinner.start()
+    // configData.frontend.path = results.Frontend_Path
+    // configData.backend.path = results.Backend_Path
+    // configData.frontend.path = results.Frontend_Path
+    // configData.backend.path = results.Backend_Path
 
     // get pkgData
     let pkgData = await readJsonFile(`${projectDir}/package.json`)

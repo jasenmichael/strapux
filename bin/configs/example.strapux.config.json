@@ -48,7 +48,7 @@
 	},
 	"frontend": {
 		"path": "nuxt",
-		"extra_packages": ["@nuxtjs/dotenv", "@nuxtjs/aut", "@nuxtjs/proxy"],
+		"extra_packages": ["@nuxtjs/dotenv", "@nuxtjs/auth", "dotenv"],
 		"tweaks": []
 	}
 }
