@@ -4,7 +4,7 @@
   "description": "",
   "main": "bin/strapux.js",
   "bin": {
-    "strapux": "build-env.js"
+    "strapux": "bin/strapux.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
