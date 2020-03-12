@@ -21,7 +21,7 @@ module.exports = async function (path, options) {
     if (successfulStrapiInstall.exitCode || successfulStrapiInstall.stderr) {
         return fail(successfulStrapiInstall.stderr)
     }
-    // const failMsg = 'failed installing Nuxt'
+
     return {
         success: true
     }
