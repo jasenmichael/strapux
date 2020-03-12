@@ -2,6 +2,6 @@
 .env
 *.env
 **.env
-!config/**.env
+!config/default.env
 
 node_modules
