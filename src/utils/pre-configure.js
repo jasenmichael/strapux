@@ -27,6 +27,14 @@ module.exports = async function (path) {
     // END copy default.strapux.config.json
 
 
+    await runBashCommand(`npm i github:jasenmichael/strapux`, `${cwd}`, true)
+        .then(() => {
+            console.log(`  ${chalk.green(`${logSymbols.success}`)} Install Strapux node package`)
+        })
+        .catch(err => fail(err))
+
+
+
     // configure package.json
     // options
     //  projectName
@@ -49,6 +57,7 @@ module.exports = async function (path) {
     return {
         success: true
     }
+
     function fail(errMsg) {
         return {
             success: false,
