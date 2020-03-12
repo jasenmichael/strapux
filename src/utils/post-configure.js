@@ -194,7 +194,7 @@ module.exports = async function (path) {
     // install strapi and nuxt extrap packages
     // install strapi and nuxt extrap packages
     /////////////////////////////////////////////////////////////////////////////////////
-    // get pkg manager
+    // todo get pkg manager
 
     const strapuxConfig = await readJson(`${path}/strapux.config.json`)
     const nuxtPackages = strapuxConfig.frontend.extra_packages.join(' ')
@@ -224,7 +224,21 @@ module.exports = async function (path) {
     // init nuxt and strapi
     // init main folder
     // edit nuxt oneclick template
-    // 
+    // configure package.json
+    // options
+    //  projectName
+    //  projectDir
+    //  mainRepo
+    //  nuxtRepo
+    //  nuxt as submodule?
+    //  strapiRepo
+    //  strapi as submodule?
+    //  author
+    //  dbType
+    //  dbCredentials
+    // checkDbAccess
+    // const failMsg = 'failed pre-configuring Strapux'
+    // return fail(failMsg)
 
     return {
         success: true
