@@ -1,0 +1,52 @@
+{
+	"repo": "",
+	"pkgMgr": "npm",
+	"db": "postgres",
+	"frontend": {
+		"env": {
+			"deveploment": {
+				"BASE_URL": "http://localhost:3000",
+				"API_BASE_URL": "http://localhost:1337"
+			},
+			"staging": {},
+			"production": {}
+		},
+		"repo": {
+			"url": "",
+			"sub_module": "false"
+		},
+		"framework": "Nuxt",
+		"path": "nuxt",
+		"extra_packages": ["@nuxtjs/dotenv", "@nuxtjs/auth", "dotenv"],
+		"tweaks": []
+	},
+	"backend": {
+		"env": {
+			"deveploment": {
+				"BASE_URL": "http://localhost:1337"
+			},
+			"staging": {},
+			"production": {}
+		},
+		"repo": {
+			"url": "",
+			"sub_module": "false"
+		},
+		"framework": "Strapi",
+		"path": "strapi",
+		"extra_packages": [
+			"dotenv",
+			"find-config",
+			"github:jasenmichael/strapi-provider-upload-sftp",
+			"pg"
+		],
+		"tweaks": []
+	},
+	"dependencies": [
+		"write-json-file",
+		"load-json-file",
+		"inquirer",
+		"ora",
+		"dotenv"
+	]
+}

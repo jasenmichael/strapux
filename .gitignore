@@ -1,16 +1,7 @@
-node_modules
-**/node_modules
-
-strapux.config.json
 
 .env
 *.env
-**/.env
-!bin.configs/example.env
-*.sql
-**/.sql
-*.dump
-**/.dump
+**.env
+!config/**.env
 
-!bin/configs/nuxt
-!bin/configs/strapi
+node_modules
