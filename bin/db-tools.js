@@ -91,7 +91,7 @@ async function init() {
                 }]
                 let selectedDumpFile = await inquirer.prompt(selectFileQ).then(res => res.dump)
                 console.log(selectedDumpFile)
-                file = `${process.cwd()}/db//${src}/${selectedDumpFile}`
+                file = `${process.cwd()}/db/${selectedFolder}/${selectedDumpFile}`
             }
             // process.exit(0)
         }
