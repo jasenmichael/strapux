@@ -5,7 +5,9 @@ const chalk = require('chalk')
 const logSymbols = require('log-symbols')
 
 const copy = promisify(require('ncp').ncp)
+
 const cwd = process.cwd()
+const runBashCommand = require('./run-bash-command')
 
 module.exports = async function (path) {
     // console.log('Pre-configuring Strapux', path)
