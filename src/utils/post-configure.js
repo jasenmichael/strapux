@@ -143,7 +143,7 @@ module.exports = async function (path) {
         let dbEnv = defaultEnv.split('=')[0].replace('DATABASE_NAME', 'DATABASE_DATABASE').replace('STRAPI_DEVELOPMENT_DATABASE_', '').toLowerCase()
         let newEnv = dbConfig.connections.default.settings[`${dbEnv}`]
         if (newEnv) {
-            newEnvFile.push(`STRAPI_DEVELOPMENT_DATABASE_${dbEnv.toUpperCase()}=${newEnv}`.replace('STRAPI_DATABASE_DATABASE', 'STRAPI_DATABASE_NAME'))
+            newEnvFile.push(`STRAPI_DEVELOPMENT_DATABASE_${dbEnv.toUpperCase()}=${newEnv}`.replace('DATABASE_DATABASE', 'DATABASE_NAME'))
         } else {
             newEnvFile.push(defaultEnv)
         }
