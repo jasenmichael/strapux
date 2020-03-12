@@ -11,6 +11,8 @@ const runBashCommand = require('./run-bash-command')
 
 module.exports = async function (path) {
     // console.log('Pre-configuring Strapux', path)
+    console.log(`  ${chalk.green(`${logSymbols.success}`)} Init project`)
+    console.log(`  ${chalk.green(`${logSymbols.success}`)} Install Strapux node package`)
 
     //------todo----
     // install packages???
@@ -27,14 +29,6 @@ module.exports = async function (path) {
     })
     // END copy default.strapux.config.json
     // END copy default.strapux.config.json
-
-
-    await runBashCommand(`npm i github:jasenmichael/strapux`, `${cwd}`, true)
-        .then(() => {
-            console.log(`  ${chalk.green(`${logSymbols.success}`)} Install Strapux node package`)
-        })
-        .catch(err => fail(err))
-
 
 
     // configure package.json
