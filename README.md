@@ -41,7 +41,7 @@ Options:
 Commands:
   create-strapux-app <path> [options]  if no path provided use current directory.
 or
-  npx github:jasenmichael/create-strapux-app <path> [options]
+  npx create-strapux-app <path> [options]
 
 ```
 
