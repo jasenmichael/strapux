@@ -4,6 +4,8 @@ const runBashCommand = require('./run-bash-command')
 const ora = require('ora')
 
 module.exports = async function (path, options) {
+    // ${path}/node_modules/strapux/config/default
+    console.log(process.argv)
     console.log('path========='. path)
     let successfulNuxtInstall
     if (options.oneclick == true) {
