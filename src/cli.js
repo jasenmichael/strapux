@@ -6,6 +6,7 @@ const version = require('../package.json').version
 import program from 'commander'
 
 export function cli() {
+    console.log(process.argv)
     program
         .option('--oneclick', 'one click install')
         .option('--freshy-install', 'WARNING deletes path directory before installing')
@@ -20,9 +21,6 @@ export function cli() {
             })
         })
     program.parse(process.argv)
-
-    // console.log(program.commands[0]._name.trim())
-    // console.log(process.argv[2])
 
     if (program.commands[0]._name !== process.argv[2]) {
         console.log(`invalid parameter ${process.argv[2]}\n`)

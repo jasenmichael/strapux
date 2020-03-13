@@ -17,9 +17,6 @@ const runBashCommand = require('./run-bash-command')
 
 
 module.exports = async function (path) {
-    // console.log('Post-configuring Strapux', path)
-
-
     // TEMP
     // await copy(`/home/me/dev/test-old/new-strapux-app/nuxt`, `${cwd}/nuxt`)
     // await copy(`/home/me/dev/test-old/new-strapux-app/strapi`, `${cwd}/strapi`)
@@ -162,8 +159,8 @@ module.exports = async function (path) {
     }
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy default Strapux .env`)
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Add Strapi db settings to Strapux .env`)
-    //  generate env from strapi settings and template
-    //  generate env from strapi settings and template
+    //  END generate env from strapi settings and template
+    //  END generate env from strapi settings and template
 
 
     // copy environment database.json
@@ -195,7 +192,6 @@ module.exports = async function (path) {
     // install strapi and nuxt extrap packages
     /////////////////////////////////////////////////////////////////////////////////////
     // todo get pkg manager
-
     const strapuxConfig = await readJson(`${path}/strapux.config.json`)
     const nuxtPackages = strapuxConfig.frontend.extra_packages.join(' ')
     const nuxtPath = strapuxConfig.frontend.path
@@ -215,7 +211,6 @@ module.exports = async function (path) {
         .catch(err => fail(err))
     // install strapi and nuxt extrap packages
     // install strapi and nuxt extrap packages
-
 
 
     //------todo----
