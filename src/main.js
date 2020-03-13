@@ -17,7 +17,7 @@ const logSymbols = require('log-symbols');
 // install Strapux, assumes from cli
 async function install(path, options) {
     // const path = args[0]
-    // console.log('options-------', options)
+    console.log('path-------', path)
     options = JSON.parse(options)
     // console.log(options)
     // we did mkdir, npm init, npm i stapux via create-strapux-app, or manually
