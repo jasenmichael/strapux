@@ -4,6 +4,7 @@ const runBashCommand = require('./run-bash-command')
 const ora = require('ora')
 
 module.exports = async function (path, options) {
+    console.log('path========='. path)
     let successfulNuxtInstall
     if (options.oneclick == true) {
         const spinner = ora({
@@ -15,7 +16,7 @@ module.exports = async function (path, options) {
             stdio: 'ignore'
         })
         spinner.clear().stop()
-    // run with prompts
+        // run with prompts
     } else {
         successfulNuxtInstall = await runBashCommand(`create-nuxt-app ${path}/nuxt`, path, false)
     }
@@ -24,9 +25,10 @@ module.exports = async function (path, options) {
     if (successfulNuxtInstall.exitCode || successfulNuxtInstall.stderr) {
         return fail(successfulNuxtInstall.stderr)
     }
-        return {
-            success: true
-        }
+    
+    return {
+        success: true
+    }
 
     function fail(errMsg) {
         return {
