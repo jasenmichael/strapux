@@ -183,10 +183,10 @@ module.exports = async function (path) {
                 fail(err)
             }
 
-            console.log(`  ${chalk.green(`${logSymbols.success}`)} Configured database to use .env`)
-            console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: strapi/config/environments/**/database.json`)
         })
     }
+    console.log(`  ${chalk.green(`${logSymbols.success}`)} Configured database to use .env`)
+    console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: strapi/config/environments/**/database.json`)
     // copy environment database.json
     // copy environment database.json
 
