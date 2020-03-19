@@ -3,17 +3,17 @@ const {
 } = require('util')
 const chalk = require('chalk')
 const logSymbols = require('log-symbols')
-
 const copy = promisify(require('ncp').ncp)
 
-module.exports = async function (path) {
+module.exports = async function (opts) {
+
     // console.log('Pre-configuring Strapux', path)
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Init project`)
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Install Strapux node package`)
 
     // copy default.strapux.config.json
     // copy default.strapux.config.json
-    await copy(`${path}/node_modules/strapux/config/default.strapux.config.json`, `${path}/strapux.config.json`, {
+    await copy(`${opts.path}/node_modules/strapux/config/default.strapux.config.json`, `${opts.path}/strapux.config.json`, {
         clobber: false,
     }).then(() => {
         console.log(`  ${chalk.green(`${logSymbols.success}`)} Create strapux.config.json`)

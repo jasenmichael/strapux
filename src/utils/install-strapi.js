@@ -1,10 +1,11 @@
 const runBashCommand = require('./run-bash-command')
 const ora = require('ora')
 
-module.exports = async function (path, options) {
+module.exports = async function (opts) {
+    const oneclick = opts.oneclick
+    const path = opts.path
     // todo-------------------------------------
     // get package manager
-    let oneclick = options.oneclick
     let successfulStrapiInstall
     if (oneclick) {
         const spinner = ora({

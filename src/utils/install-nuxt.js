@@ -2,9 +2,10 @@ const execa = require('execa')
 const runBashCommand = require('./run-bash-command')
 const ora = require('ora')
 
-module.exports = async function (path, options) {
+module.exports = async function (opts) {
+    const path = opts.path
     let successfulNuxtInstall
-    if (options.oneclick) {
+    if (opts.oneclick) {
         const spinner = ora({
             text: 'Installing Nuxt from template'
         })

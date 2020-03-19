@@ -11,15 +11,17 @@ const replace = require('replace-in-file')
 const readJson = require('./read-write-json').read
 const writeJson = require('./read-write-json').write
 const copy = promisify(require('ncp').ncp)
-const cwd = process.cwd()
+// const cwd = process.cwd()
 
 const runBashCommand = require('./run-bash-command')
 
 
-module.exports = async function (path) {
+module.exports = async function (opts) {
+    // const oneclick = opts.oneclick
+    const path = opts.path
     // TEMP
-    // await copy(`/home/me/dev/test-old/new-strapux-app/nuxt`, `${cwd}/nuxt`)
-    // await copy(`/home/me/dev/test-old/new-strapux-app/strapi`, `${cwd}/strapi`)
+    // await copy(`/home/me/dev/test-old/new-strapux-app/nuxt`, `${path}/nuxt`)
+    // await copy(`/home/me/dev/test-old/new-strapux-app/strapi`, `${path}/strapi`)
 
 
     // add dotenv to nuxt/nuxt.config.js
@@ -95,7 +97,7 @@ module.exports = async function (path) {
 
     // add .env to strapi .gitignore
     // add .env to strapi .gitignore
-    await fs.appendFile('strapi/.gitignore', '\n#added by Strapux install\n.env', function (err) {
+    await fs.appendFile(`${path}/strapi/.gitignore`, '\n#added by Strapux install\n.env', function (err) {
         if (err) {
             fail(err)
         }
@@ -107,7 +109,7 @@ module.exports = async function (path) {
 
     // copy db folders
     // copy db folders
-    await copy(`${cwd}/node_modules/strapux/config/db/`, `${cwd}/db`, {
+    await copy(`${path}/node_modules/strapux/config/db/`, `${path}/db`, {
         clobber: false,
     }).then(() => {
         console.log(`  ${chalk.green(`${logSymbols.success}`)} Create db folder`)
@@ -120,7 +122,7 @@ module.exports = async function (path) {
 
     // copy default.gitignore
     // copy default.gitignore
-    await copy(`${cwd}/node_modules/strapux/config/default.gitignore`, `${cwd}/,gitignore`, {
+    await copy(`${path}/node_modules/strapux/config/default.gitignore`, `${path}/.gitignore`, {
         clobber: false,
     }).catch(err => {
         return fail(err)
@@ -131,8 +133,8 @@ module.exports = async function (path) {
 
     //  generate env from strapi settings and template
     //  generate env from strapi settings and template
-    const defaultEnvFile = await fs.readFileSync(`${cwd}/node_modules/strapux/config/default.env`).toString().split("\n")
-    const dbConfig = await readJson(`${cwd}/strapi/config/environments/development/database.json`)
+    const defaultEnvFile = await fs.readFileSync(`${path}/node_modules/strapux/config/default.env`).toString().split("\n")
+    const dbConfig = await readJson(`${path}/strapi/config/environments/development/database.json`)
     const dbSettings = Object.keys(dbConfig.connections.default.settings)
 
     let newEnvFile = []
@@ -188,8 +190,8 @@ module.exports = async function (path) {
     // copy environment database.json
 
 
-    // install strapi and nuxt extrap packages
-    // install strapi and nuxt extrap packages
+    // install strapi and nuxt extra packages
+    // install strapi and nuxt extra packages
     /////////////////////////////////////////////////////////////////////////////////////
     // todo get pkg manager
     const strapuxConfig = await readJson(`${path}/strapux.config.json`)
@@ -209,8 +211,8 @@ module.exports = async function (path) {
             console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Installed: ${strapiPackages}`)
         })
         .catch(err => fail(err))
-    // install strapi and nuxt extrap packages
-    // install strapi and nuxt extrap packages
+    // install strapi and nuxt extra packages
+    // install strapi and nuxt extra packages
 
 
     //------todo----

@@ -1,7 +1,1 @@
-
-.env
-*.env
-**.env
-!config/default.env
-
 node_modules
