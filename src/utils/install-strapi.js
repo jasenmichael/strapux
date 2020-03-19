@@ -1,8 +1,11 @@
 const runBashCommand = require('./run-bash-command')
 const ora = require('ora')
 
-module.exports = async function (path, options) {
-    let oneclick = options.oneclick
+module.exports = async function (opts) {
+    const oneclick = opts.oneclick
+    const path = opts.path
+    // todo-------------------------------------
+    // get package manager
     let successfulStrapiInstall
     if (oneclick) {
         const spinner = ora({
@@ -19,7 +22,7 @@ module.exports = async function (path, options) {
     if (successfulStrapiInstall.exitCode || successfulStrapiInstall.stderr) {
         return fail(successfulStrapiInstall.stderr)
     }
-    // const failMsg = 'failed installing Nuxt'
+
     return {
         success: true
     }

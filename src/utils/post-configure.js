@@ -11,18 +11,17 @@ const replace = require('replace-in-file')
 const readJson = require('./read-write-json').read
 const writeJson = require('./read-write-json').write
 const copy = promisify(require('ncp').ncp)
-const cwd = process.cwd()
+// const cwd = process.cwd()
 
 const runBashCommand = require('./run-bash-command')
 
 
-module.exports = async function (path) {
-    // console.log('Post-configuring Strapux', path)
-
-
+module.exports = async function (opts) {
+    // const oneclick = opts.oneclick
+    const path = opts.path
     // TEMP
-    // await copy(`/home/me/dev/test-old/new-strapux-app/nuxt`, `${cwd}/nuxt`)
-    // await copy(`/home/me/dev/test-old/new-strapux-app/strapi`, `${cwd}/strapi`)
+    // await copy(`/home/me/dev/test-old/new-strapux-app/nuxt`, `${path}/nuxt`)
+    // await copy(`/home/me/dev/test-old/new-strapux-app/strapi`, `${path}/strapi`)
 
 
     // add dotenv to nuxt/nuxt.config.js
@@ -98,7 +97,7 @@ module.exports = async function (path) {
 
     // add .env to strapi .gitignore
     // add .env to strapi .gitignore
-    await fs.appendFile('strapi/.gitignore', '\n#added by Strapux install\n.env', function (err) {
+    await fs.appendFile(`${path}/strapi/.gitignore`, '\n#added by Strapux install\n.env', function (err) {
         if (err) {
             fail(err)
         }
@@ -110,7 +109,7 @@ module.exports = async function (path) {
 
     // copy db folders
     // copy db folders
-    await copy(`${cwd}/node_modules/strapux/config/db/`, `${cwd}/db`, {
+    await copy(`${path}/node_modules/strapux/config/db/`, `${path}/db`, {
         clobber: false,
     }).then(() => {
         console.log(`  ${chalk.green(`${logSymbols.success}`)} Create db folder`)
@@ -123,7 +122,7 @@ module.exports = async function (path) {
 
     // copy default.gitignore
     // copy default.gitignore
-    await copy(`${cwd}/node_modules/strapux/config/default.gitignore`, `${cwd}/,gitignore`, {
+    await copy(`${path}/node_modules/strapux/config/default.gitignore`, `${path}/.gitignore`, {
         clobber: false,
     }).catch(err => {
         return fail(err)
@@ -134,8 +133,8 @@ module.exports = async function (path) {
 
     //  generate env from strapi settings and template
     //  generate env from strapi settings and template
-    const defaultEnvFile = await fs.readFileSync(`${cwd}/node_modules/strapux/config/default.env`).toString().split("\n")
-    const dbConfig = await readJson(`${cwd}/strapi/config/environments/development/database.json`)
+    const defaultEnvFile = await fs.readFileSync(`${path}/node_modules/strapux/config/default.env`).toString().split("\n")
+    const dbConfig = await readJson(`${path}/strapi/config/environments/development/database.json`)
     const dbSettings = Object.keys(dbConfig.connections.default.settings)
 
     let newEnvFile = []
@@ -143,7 +142,7 @@ module.exports = async function (path) {
         let dbEnv = defaultEnv.split('=')[0].replace('DATABASE_NAME', 'DATABASE_DATABASE').replace('STRAPI_DEVELOPMENT_DATABASE_', '').toLowerCase()
         let newEnv = dbConfig.connections.default.settings[`${dbEnv}`]
         if (newEnv) {
-            newEnvFile.push(`STRAPI_DEVELOPMENT_DATABASE_${dbEnv.toUpperCase()}=${newEnv}`.replace('STRAPI_DATABASE_DATABASE', 'STRAPI_DATABASE_NAME'))
+            newEnvFile.push(`STRAPI_DEVELOPMENT_DATABASE_${dbEnv.toUpperCase()}=${newEnv}`.replace('DATABASE_DATABASE', 'DATABASE_NAME'))
         } else {
             newEnvFile.push(defaultEnv)
         }
@@ -162,8 +161,8 @@ module.exports = async function (path) {
     }
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy default Strapux .env`)
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Add Strapi db settings to Strapux .env`)
-    //  generate env from strapi settings and template
-    //  generate env from strapi settings and template
+    //  END generate env from strapi settings and template
+    //  END generate env from strapi settings and template
 
 
     // copy environment database.json
@@ -183,19 +182,18 @@ module.exports = async function (path) {
                 fail(err)
             }
 
-            console.log(`  ${chalk.green(`${logSymbols.success}`)} Configured database to use .env`)
-            console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: strapi/config/environments/**/database.json`)
         })
     }
+    console.log(`  ${chalk.green(`${logSymbols.success}`)} Configured database to use .env`)
+    console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: strapi/config/environments/**/database.json`)
     // copy environment database.json
     // copy environment database.json
 
 
-    // install strapi and nuxt extrap packages
-    // install strapi and nuxt extrap packages
+    // install strapi and nuxt extra packages
+    // install strapi and nuxt extra packages
     /////////////////////////////////////////////////////////////////////////////////////
-    // get pkg manager
-
+    // todo get pkg manager
     const strapuxConfig = await readJson(`${path}/strapux.config.json`)
     const nuxtPackages = strapuxConfig.frontend.extra_packages.join(' ')
     const nuxtPath = strapuxConfig.frontend.path
@@ -213,9 +211,8 @@ module.exports = async function (path) {
             console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Installed: ${strapiPackages}`)
         })
         .catch(err => fail(err))
-    // install strapi and nuxt extrap packages
-    // install strapi and nuxt extrap packages
-
+    // install strapi and nuxt extra packages
+    // install strapi and nuxt extra packages
 
 
     //------todo----
@@ -224,7 +221,21 @@ module.exports = async function (path) {
     // init nuxt and strapi
     // init main folder
     // edit nuxt oneclick template
-    // 
+    // configure package.json
+    // options
+    //  projectName
+    //  projectDir
+    //  mainRepo
+    //  nuxtRepo
+    //  nuxt as submodule?
+    //  strapiRepo
+    //  strapi as submodule?
+    //  author
+    //  dbType
+    //  dbCredentials
+    // checkDbAccess
+    // const failMsg = 'failed pre-configuring Strapux'
+    // return fail(failMsg)
 
     return {
         success: true
