@@ -3,14 +3,14 @@ const runBashCommand = require('./run-bash-command')
 const ora = require('ora')
 const {
     random
-} = require('superb')
+} = require('brah')
 
 module.exports = async function (opts) {
     const path = opts.path
     let successfulNuxtInstall
     if (opts.oneclick) {
         // get superb
-        let superb = await random()
+        let brah = await random()
         superb.charAt(0).toUpperCase() + superb.slice(1)
         // get pkg mngr
         let pkgMgr = 'npm'
@@ -24,7 +24,7 @@ module.exports = async function (opts) {
             text: 'Installing Nuxt from template'
         })
         spinner.start()
-        successfulNuxtInstall = await execa.command(`${path}/node_modules/strapux/src/scripts/create-nuxt-app-answers.sh ${nuxtPath} ${superb} ${user} ${pkgMgr}`, {
+        successfulNuxtInstall = await execa.command(`${path}/node_modules/strapux/src/scripts/create-nuxt-app-answers.sh ${nuxtPath} ${brah} ${user} ${pkgMgr}`, {
             cwd: path,
             stdio: 'ignore'
         })
