@@ -4,7 +4,6 @@ const ora = require('ora')
 const {
     random
 } = require('superb')
-const username = require('username')
 
 module.exports = async function (opts) {
     const path = opts.path
