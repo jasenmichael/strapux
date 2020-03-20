@@ -337,7 +337,13 @@ module.exports = async function (opts) {
     })
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Created empty ${nuxtPath}/store/index.js`)
     // copy default db with creds
-
+    await copy(`${path}/node_modules/strapux/config/strapi/.tmp/data.db`, `${path}/strapi/.tmp/data.db`, {
+        clobber: true,
+    }).then(() => {
+        console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy oneclick database`)
+    }).catch(err => {
+        return fail(err)
+    })
     // add nuxt auth template to pages index.vue
     // add nuxt auth template to pages index.vue
 
