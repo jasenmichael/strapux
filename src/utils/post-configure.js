@@ -306,7 +306,7 @@ module.exports = async function (opts) {
         })
 
     // copy oneclick.nuxt.config.js
-    await copy(`${path}/node_modules/strapux/config/nuxt/oneclick.nuxt.config`, `${path}/nuxt/nuxt.config.js`, {
+    await copy(`${path}/node_modules/strapux/config/nuxt/oneclick.nuxt.config.js`, `${path}/nuxt/nuxt.config.js`, {
         clobber: true,
     }).then(() => {
         console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy onclick default nuxt.config.js`)
@@ -323,7 +323,7 @@ module.exports = async function (opts) {
     })
 
     // copy default db with creds
-    
+
     // add nuxt auth template to pages index.vue
     // add nuxt auth template to pages index.vue
 
