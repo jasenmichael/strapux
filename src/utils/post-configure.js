@@ -240,7 +240,7 @@ module.exports = async function (opts) {
     // if oneclick - add nuxt auth login page and edit index
     // add nuxt auth template to pages index.vue
     // add nuxt auth template to pages index.vue
-    const nuxtIndex = `${path}/nuxt/pages/index.vue`
+    const nuxtIndex = `${path}/${nuxtPath}/pages/index.vue`
     if (opts.oneclick) {
         try {
             await access(nuxtIndex, fs.constants.R_OK)
@@ -306,7 +306,7 @@ module.exports = async function (opts) {
         })
 
     // copy oneclick.nuxt.config.js
-    await copy(`${path}/node_modules/strapux/config/nuxt/oneclick.nuxt.config.js`, `${path}/nuxt/nuxt.config.js`, {
+    await copy(`${path}/node_modules/strapux/config/nuxt/oneclick.nuxt.config.js`, `${path}/${nuxtPath}/nuxt.config.js`, {
         clobber: true,
     }).then(() => {
         console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy onclick default nuxt.config.js`)
@@ -321,7 +321,21 @@ module.exports = async function (opts) {
     }).catch(err => {
         return fail(err)
     })
-
+    // touch nuxt/store/index.js
+    await runBashCommand(`touch store/index.js`, `${path}/${nuxtPath}`, true)
+        .catch(err => {
+            return fail(err)
+        })
+    await runBashCommand(`touch store/index.js`, `${path}/${nuxtPath}`, true)
+        .then(() => {}).catch(err => {
+            return fail(err)
+        })
+    await fs.appendFile(`${path}/${nuxtPath}/store/index.js`, 'export const state = () => ({})', function (err) {
+        if (err) {
+            fail(err)
+        }
+    })
+    console.log(`  ${chalk.green(`${logSymbols.success}`)} Created empty ${nuxtPath}/store/index.js`)
     // copy default db with creds
 
     // add nuxt auth template to pages index.vue
