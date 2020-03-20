@@ -10,7 +10,8 @@ module.exports = async function (opts) {
     let successfulNuxtInstall
     if (opts.oneclick) {
         // get superb
-        const superb = await random()
+        let superb = await random()
+        superb.charAt(0).toUpperCase() + superb.slice
         // get pkg mngr
         let pkgMgr = 'npm'
         // get usr
@@ -23,7 +24,7 @@ module.exports = async function (opts) {
             text: 'Installing Nuxt from template'
         })
         spinner.start()
-        successfulNuxtInstall = await execa.command(`${path}/node_modules/strapux/src/scripts/create-nuxt-app-answers.sh nuxt ${superb.toUpperCase()} ${user} ${pkgMgr}`, {
+        successfulNuxtInstall = await execa.command(`${path}/node_modules/strapux/src/scripts/create-nuxt-app-answers.sh nuxt ${superb} ${user} ${pkgMgr}`, {
             cwd: path,
             stdio: 'ignore'
         })

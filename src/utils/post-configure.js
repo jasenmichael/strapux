@@ -237,6 +237,9 @@ module.exports = async function (opts) {
     // const failMsg = 'failed pre-configuring Strapux'
     // return fail(failMsg)
 
+    // add nuxt auth login page and edit index
+    
+
     return {
         success: true
     }
