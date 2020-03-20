@@ -237,8 +237,75 @@ module.exports = async function (opts) {
     // const failMsg = 'failed pre-configuring Strapux'
     // return fail(failMsg)
 
-    // add nuxt auth login page and edit index
-    
+    // if oneclick - add nuxt auth login page and edit index
+    // add nuxt auth template to pages index.vue
+    // add nuxt auth template to pages index.vue
+    if (opts.oneclick) {
+        const nuxtIndex = `${path}/nuxt/pages/index.vue`
+        try {
+            await access(nuxtIndex, fs.constants.R_OK)
+        } catch (err) {
+            return fail(err)
+        }
+        // add logout method
+        await replace({
+                files: nuxtIndex,
+                from: `
+    Logo
+  }
+`,
+                to: `
+    Logo
+  },
+  methods: {
+    logout() {
+      setTimeout(async () => {
+        await this.$auth.logout()
+        this.$router.push('/login')
+      }, 1000)
+    }
+  }
+`,
+            })
+            .then(() => {
+                console.log(`  ${chalk.bold(`${logSymbols.success}`)} add nuxt auth template to index.vue`)
+                console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: nuxt/pages/index.vue`)
+            })
+            .catch(error => {
+                return fail(error)
+            })
+    }
+
+    // add logout links div, and user info
+    await replace({
+            files: nuxtIndex,
+            from: `
+      </div>
+    </div>
+  </div>
+</template>
+`,
+            to: `
+      </div>
+      <div class="links">
+        <nuxt-link v-if="!$auth.loggedIn" to="login" class="button--green">Sign in</nuxt-link>
+        <nuxt-link v-else to="login" @click.native="logout()" class="button--green">Sign out</nuxt-link>
+        <pre class="user">{{$auth.user}}</pre>
+      </div>
+    </div>
+  </div>
+</template>
+`,
+        })
+        .then(() => {
+            console.log(`  ${chalk.bold(`${logSymbols.success}`)} add nuxt auth template to index.vue`)
+            console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: nuxt/pages/index.vue`)
+        })
+        .catch(error => {
+            return fail(error)
+        })
+    // add nuxt auth template to pages index.vue
+    // add nuxt auth template to pages index.vue
 
     return {
         success: true
