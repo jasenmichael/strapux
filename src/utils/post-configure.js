@@ -304,6 +304,8 @@ module.exports = async function (opts) {
         .catch(error => {
             return fail(error)
         })
+
+    // copy
     // add nuxt auth template to pages index.vue
     // add nuxt auth template to pages index.vue
 
