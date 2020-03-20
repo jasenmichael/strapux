@@ -4,16 +4,15 @@ Scaffold Nuxt and Strapi in a few clicks, centralizes one .env for development, 
 
 #### Create Strapux app using npx
 ```bash 
-npx create-strapux-app <my-strapux-project>
+npx create-strapux-app [my-strapux-project]
 ```
 
 ## Features:
 ### Auto environment generating
 - auto generates .env for Nuxt and Strapi from master .env
 - generate .env files for staging and production, to easily copy to services like Netlify and Heroku.
-- 
 
-### Database Tools 
+### Database Tools (under development)
 - ```db:clone <environment> <environment>``` # clone from one environment to another, with auto dump
 - ```db:dump  <environment>``` # dump environment database
 - ```db:import <environment> <dump>``` # import environment database dump
@@ -22,27 +21,28 @@ npx create-strapux-app <my-strapux-project>
 
 ## Installation
 ```bash 
-npx create-strapux-app <my-strapux-project>
+npx create-strapux-app [my-strapux-project]
 ```
+Use -o or --oneclick for "oneclick install",
+this creates Strapi with --quickstart,
+creates Nuxt from template,
+sample "Nuxt auth" wired with Strapi out-of-box.
+```bash
+npx create-strapux-app [my-strapux-project] --oneclick
+```
+
 or a fresh install (deletes existing my-strapux-project)
 ```bash 
-npx create-strapux-app <my-strapux-project> --freshy-install
+npx create-strapux-app [my-strapux-project] --freshy-install
 ```
 
+or install Strapux globally
+```bash
+npm install -g strapux
 ```
-Usage: create-strapux-app install <path>
-
-Options:
-  --oneclick            one click install
-  --freshy-install      WARNING deletes path directory before installing
-  -V, -v, --version     output the version number
-  -h, --help            output usage information
-
-Commands:
-  create-strapux-app <path> [options]  if no path provided use current directory.
-or
-  npx create-strapux-app <path> [options]
-
+strapux-cli will be available
+```bash
+strapux-cli
 ```
 
 https://github.com/jasenmichael/create-strapux-app

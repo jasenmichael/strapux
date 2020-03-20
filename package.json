@@ -4,7 +4,7 @@
   "description": "strapux cli and tools",
   "main": "src/main.js",
   "bin": {
-    "strapux": "bin/strapux-cli.js"
+    "strapux-cli": "bin/strapux-cli.js"
   },
   "scripts": {},
   "keywords": [],
