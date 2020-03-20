@@ -55,12 +55,11 @@ const create = (opts) => {
     if (opts.oneclick) {
         console.log(`Oneclick passed, sit back and roll one...`)
     }
-    console.log(`✨ Creating Strapux project in ${opts.path === process.cwd() ? '.' : opts.path}`)
+    console.log(`✨ Creating Strapux project in ${opts.path}`)
 
     tasks.run().then(() => {
         console.log(`✨ Strapux installed!`)
         console.log(`
-run
   cd ${opts.path}
   npm run dev    
         `)
