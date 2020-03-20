@@ -1,14 +1,14 @@
 create-nuxt-app $1 --answers \
 '{
     "name":"'$1'",
-    "description":"sweet new proj",
-    "author": "jasenmichael",
-    "pm":"npm",
-    "ui":"none",
+    "description":"My '$2' Strapi/Nuxt project",
+    "author": "'$3'",
+    "pm":"'$4'",
+    "ui":"bootstrap",
     "server":"none",
     "features":["axios","pwa", "dotenv"],
     "linter":[],
-    "test":"jest",
+    "test":"none",
     "mode":"spa",
-    "devTools":["jsconfig.json"]
+    "devTools":[]
 }'
