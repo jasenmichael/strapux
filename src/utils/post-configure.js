@@ -240,8 +240,8 @@ module.exports = async function (opts) {
     // if oneclick - add nuxt auth login page and edit index
     // add nuxt auth template to pages index.vue
     // add nuxt auth template to pages index.vue
+    const nuxtIndex = `${path}/nuxt/pages/index.vue`
     if (opts.oneclick) {
-        const nuxtIndex = `${path}/nuxt/pages/index.vue`
         try {
             await access(nuxtIndex, fs.constants.R_OK)
         } catch (err) {
