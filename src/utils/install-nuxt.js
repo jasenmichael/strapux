@@ -23,7 +23,7 @@ module.exports = async function (opts) {
             text: 'Installing Nuxt from template'
         })
         spinner.start()
-        successfulNuxtInstall = await execa.command(`${path}/node_modules/strapux/src/scripts/create-nuxt-app-answers.sh strapux ${superb.toUpperCase()} ${user} ${pkgMgr}`, {
+        successfulNuxtInstall = await execa.command(`${path}/node_modules/strapux/src/scripts/create-nuxt-app-answers.sh nuxt ${superb.toUpperCase()} ${user} ${pkgMgr}`, {
             cwd: path,
             stdio: 'ignore'
         })

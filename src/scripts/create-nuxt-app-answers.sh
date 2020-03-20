@@ -1,6 +1,6 @@
 create-nuxt-app $1 --answers \
 '{
-    "name":"'$1'",
+    "name":"Strapux",
     "description":"My '$2' Strapi/Nuxt project",
     "author": "'$3'",
     "pm":"'$4'",
