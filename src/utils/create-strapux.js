@@ -50,7 +50,22 @@ const create = (opts) => {
         concurrent: false,
         exitOnError: true
     })
-    tasks.run().catch(err => {
+
+    console.clear()
+    if (opts.oneclick) {
+        console.log(`Oneclick passed, sit back and roll one...`)
+    }
+    console.log(`✨ Creating Strapux project in ${path === process.cwd() ? '.' : path}`)
+
+    tasks.run().then(() => {
+        console.log(`✨ Strapux installed!`)
+        console.log(`
+run
+  cd ${opts.path}
+  npm run dev    
+        `)
+
+    }).catch(err => {
         abortInstall(err)
     })
 }
