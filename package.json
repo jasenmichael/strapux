@@ -1,6 +1,6 @@
 {
   "name": "strapux",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "strapux cli and tools",
   "main": "src/main.js",
   "bin": {
