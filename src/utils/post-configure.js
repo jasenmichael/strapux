@@ -337,6 +337,10 @@ module.exports = async function (opts) {
     })
     console.log(`  ${chalk.green(`${logSymbols.success}`)} Created empty ${nuxtPath}/store/index.js`)
     // copy default db with creds
+    await runBashCommand(`mkdir .tmp`, `${path}/strapi`, true)
+        .catch(err => {
+            return fail(err)
+        })
     await copy(`${path}/node_modules/strapux/config/strapi/.tmp/data.db`, `${path}/strapi/.tmp/data.db`, {
         clobber: true,
     }).then(() => {
