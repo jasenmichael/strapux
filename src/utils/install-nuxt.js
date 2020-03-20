@@ -11,7 +11,7 @@ module.exports = async function (opts) {
     if (opts.oneclick) {
         // get superb
         let brah = await random()
-        superb.charAt(0).toUpperCase() + superb.slice(1)
+        brah.charAt(0).toUpperCase() + brah.slice(1)
         // get pkg mngr
         let pkgMgr = 'npm'
         // get usr
