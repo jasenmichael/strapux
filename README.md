@@ -12,7 +12,7 @@ npx create-strapux-app [my-strapux-project]
 - auto generates .env for Nuxt and Strapi from master .env
 - generate .env files for staging and production, to easily copy to services like Netlify and Heroku.
 
-### Database Tools (under development)
+### Database Tools
 - ```db:clone <environment> <environment>``` # clone from one environment to another, with auto dump
 - ```db:dump  <environment>``` # dump environment database
 - ```db:import <environment> <dump>``` # import environment database dump
