@@ -267,6 +267,43 @@ module.exports = async function (opts) {
   }
 `,
             })
+            .catch(error => {
+                return fail(error)
+            })
+
+
+        // add scoped to index
+        await replace({
+                files: nuxtIndex,
+                from: `<style>`,
+                to: `<style scoped>`,
+            })
+            .catch(error => {
+                return fail(error)
+            })
+
+        // add logout links div, and user info to index
+        await replace({
+                files: nuxtIndex,
+                from: `
+      </div>
+    </div>
+  </div>
+</template>
+`,
+                to: `
+      </div>
+      <div class="links">
+        <nuxt-link v-if="!$auth.loggedIn" to="login" class="button--green">Sign in</nuxt-link>
+        <nuxt-link v-else to="login" @click.native="logout()" class="button--grey">Sign out</nuxt-link>
+        <a class="button--green" target="_blank" href="http://localhost:1337/admin">Strapi admin</a>
+        <pre class="user">{{$auth.user}}</pre>
+      </div>
+    </div>
+  </div>
+</template>
+`,
+            })
             .then(() => {
                 console.log(`  ${chalk.bold(`${logSymbols.success}`)} add nuxt auth template to index.vue`)
                 console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: nuxt/pages/index.vue`)
@@ -274,82 +311,53 @@ module.exports = async function (opts) {
             .catch(error => {
                 return fail(error)
             })
+
+        // copy oneclick.nuxt.config.js
+        await copy(`${path}/node_modules/strapux/config/nuxt/oneclick.nuxt.config.js`, `${path}/${nuxtPath}/nuxt.config.js`, {
+            clobber: true,
+        }).then(() => {
+            console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy onclick default nuxt.config.js`)
+        }).catch(err => {
+            return fail(err)
+        })
+        // copy login.vue
+        await copy(`${path}/node_modules/strapux/config/nuxt/login.vue`, `${path}/nuxt/pages/login.vue`, {
+            clobber: false,
+        }).then(() => {
+            console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy sample login.vue`)
+        }).catch(err => {
+            return fail(err)
+        })
+        // touch nuxt/store/index.js
+        await runBashCommand(`touch store/index.js`, `${path}/${nuxtPath}`, true)
+            .catch(err => {
+                return fail(err)
+            })
+        await runBashCommand(`touch store/index.js`, `${path}/${nuxtPath}`, true)
+            .then(() => {}).catch(err => {
+                return fail(err)
+            })
+        await fs.appendFile(`${path}/${nuxtPath}/store/index.js`, 'export const state = () => ({})', function (err) {
+            if (err) {
+                fail(err)
+            }
+        })
+        console.log(`  ${chalk.green(`${logSymbols.success}`)} Created empty ${nuxtPath}/store/index.js`)
+        // copy default db with creds
+        await runBashCommand(`mkdir .tmp`, `${path}/strapi`, true)
+            .catch(err => {
+                return fail(err)
+            })
+        await copy(`${path}/node_modules/strapux/config/strapi/.tmp/data.db`, `${path}/strapi/.tmp/data.db`, {
+            clobber: true,
+        }).then(() => {
+            console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy oneclick database`)
+        }).catch(err => {
+            return fail(err)
+        })
+        // add nuxt auth template to pages index.vue
+        // add nuxt auth template to pages index.vue
     }
-
-    // add logout links div, and user info
-    await replace({
-            files: nuxtIndex,
-            from: `
-      </div>
-    </div>
-  </div>
-</template>
-`,
-            to: `
-      </div>
-      <div class="links">
-        <nuxt-link v-if="!$auth.loggedIn" to="login" class="button--green">Sign in</nuxt-link>
-        <nuxt-link v-else to="login" @click.native="logout()" class="button--green">Sign out</nuxt-link>
-        <pre class="user">{{$auth.user}}</pre>
-      </div>
-    </div>
-  </div>
-</template>
-`,
-        })
-        .then(() => {
-            console.log(`  ${chalk.bold(`${logSymbols.success}`)} add nuxt auth template to index.vue`)
-            console.log(`  ${chalk.blue.bold(`${logSymbols.info}`)} Modified: nuxt/pages/index.vue`)
-        })
-        .catch(error => {
-            return fail(error)
-        })
-
-    // copy oneclick.nuxt.config.js
-    await copy(`${path}/node_modules/strapux/config/nuxt/oneclick.nuxt.config.js`, `${path}/${nuxtPath}/nuxt.config.js`, {
-        clobber: true,
-    }).then(() => {
-        console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy onclick default nuxt.config.js`)
-    }).catch(err => {
-        return fail(err)
-    })
-    // copy login.vue
-    await copy(`${path}/node_modules/strapux/config/nuxt/login.vue`, `${path}/nuxt/pages/login.vue`, {
-        clobber: false,
-    }).then(() => {
-        console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy sample login.vue`)
-    }).catch(err => {
-        return fail(err)
-    })
-    // touch nuxt/store/index.js
-    await runBashCommand(`touch store/index.js`, `${path}/${nuxtPath}`, true)
-        .catch(err => {
-            return fail(err)
-        })
-    await runBashCommand(`touch store/index.js`, `${path}/${nuxtPath}`, true)
-        .then(() => {}).catch(err => {
-            return fail(err)
-        })
-    await fs.appendFile(`${path}/${nuxtPath}/store/index.js`, 'export const state = () => ({})', function (err) {
-        if (err) {
-            fail(err)
-        }
-    })
-    console.log(`  ${chalk.green(`${logSymbols.success}`)} Created empty ${nuxtPath}/store/index.js`)
-    // copy default db with creds
-    await runBashCommand(`mkdir .tmp`, `${path}/strapi`, true)
-        .catch(err => {
-            return fail(err)
-        })
-    await copy(`${path}/node_modules/strapux/config/strapi/.tmp/data.db`, `${path}/strapi/.tmp/data.db`, {
-        clobber: true,
-    }).then(() => {
-        console.log(`  ${chalk.green(`${logSymbols.success}`)} Copy oneclick database`)
-    }).catch(err => {
-        return fail(err)
-    })
-    // add nuxt auth template to pages index.vue
-    // add nuxt auth template to pages index.vue
 
     return {
         success: true

@@ -49,11 +49,6 @@ export default {
               password: pass
             }
           })
-          // .then(() => {
-          //   setTimeout(() => {
-          //     this.$router.push('/')
-          //   }, 4500)
-          // })
           .catch(err => {
             this.setMsg('invalid credentials')
           })
@@ -68,8 +63,7 @@ export default {
         this.setMsg('missing user name and password')
       }
     },
-    loginGoogle() {},
-    loginGoogle() {},
+    // loginGoogle() {},
     setMsg(msg) {
       this.msg = msg
       setTimeout(() => {
